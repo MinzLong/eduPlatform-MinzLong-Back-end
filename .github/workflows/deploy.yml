@@ -98,5 +98,9 @@ jobs:
     runs-on: ubuntu-latest
     if: failure()
     steps:
+      - name: Get MongoDB Container ID
+        id: get-mongo-id
+        run: echo "::set-output name=id::$(docker ps -aqf "name=mongodb")"
+      
       - name: Check MongoDB Logs
-        run: docker logs $(docker ps -aqf "name=mongodb")
+        run: docker logs ${{ steps.get-mongo-id.outputs.id }}
