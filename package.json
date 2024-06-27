@@ -8,8 +8,8 @@
     "build": "cd eduPlatform && npm run build"
   },
   "devDependencies": {
-    "vite": "^5.3.1",
+    "vite": "^5.3.2",
     "concurrently": "^6.2.0",
-    "@vitejs/plugin-vue": "^3.0.0"
+    "@vitejs/plugin-vue": "^4.0.0" 
   }
 }
