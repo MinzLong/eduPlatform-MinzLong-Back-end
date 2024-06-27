@@ -16,7 +16,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build App
-        run: npm run build -- --base=/EduPlatform-MinzLong/
+        run: cd eduPlatform && npm run build -- --base=/EduPlatform-MinzLong/
       - name: Archive artifact
         shell: sh
         run: |
