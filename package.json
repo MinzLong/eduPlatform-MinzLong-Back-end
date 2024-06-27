@@ -8,7 +8,7 @@
     "build": "cd eduPlatform && npm run build"
   },
   "devDependencies": {
-    "@vue/cli-service": "^4.5.19",
+    "vite": "^5.3.1",
     "concurrently": "^6.2.0"
   }
 }
