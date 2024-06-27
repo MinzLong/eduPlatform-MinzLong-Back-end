@@ -4,7 +4,8 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd Server && npm start",
-    "client": "cd eduPlatform && npm run dev"
+    "client": "cd eduPlatform && npm run dev",
+    "build": "cd eduPlatform && npm run build"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"

@@ -22,7 +22,7 @@ jobs:
         run: |
           tar \
             --dereference --hard-dereference \
-            --directory "dist" \
+            --directory "eduPlatform/dist" \
             -cvf "$RUNNER_TEMP/artifact.tar" \
             --exclude=.git \
             --exclude=.github \
@@ -35,15 +35,11 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    # Chờ "build" xong mới chạy "deploy"
     needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write
+      id-token: write
 
-    # Deploy to the github-pages environment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
