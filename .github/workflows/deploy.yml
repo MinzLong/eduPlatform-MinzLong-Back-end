@@ -15,10 +15,6 @@ jobs:
         with:
           node-version: '20'
 
-      # Copy .env file to Server directory
-      - name: Copy .env to Server
-        run: cp .env Server/.env
-
       # Install root dependencies
       - name: Install Root Dependencies
         run: npm install
