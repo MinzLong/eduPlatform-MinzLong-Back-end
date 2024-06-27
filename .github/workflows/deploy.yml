@@ -13,10 +13,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install Dependencies
+      # Install dependencies in the root directory
+      - name: Install Root Dependencies
         run: npm install
+      # Navigate to the project directory and install its dependencies
+      - name: Install Project Dependencies
+        run: cd eduPlatform && npm install
+      # Build the application
       - name: Build App
         run: cd eduPlatform && npm run build -- --base=/EduPlatform-MinzLong/
+      # Archive the build artifacts
       - name: Archive artifact
         shell: sh
         run: |
@@ -27,6 +33,7 @@ jobs:
             --exclude=.git \
             --exclude=.github \
             .
+      # Upload the build artifacts
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -44,6 +51,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
