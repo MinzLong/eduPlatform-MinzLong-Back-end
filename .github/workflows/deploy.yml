@@ -30,6 +30,12 @@ jobs:
         run: |
           cd Server
           nohup npm start &
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+
+      # Wait for MongoDB to be connected
+      - name: Wait for MongoDB
+        run: npx wait-on -l -v http://localhost:3000/api/status
 
       # Install client dependencies
       - name: Install Client Dependencies
