@@ -30,8 +30,6 @@ jobs:
         run: |
           cd Server
           nohup npm start &
-        env:
-          MONGO_URI: ${{ secrets.MONGO_URI }}
 
       # Install client dependencies
       - name: Install Client Dependencies
