@@ -24,10 +24,9 @@ jobs:
         with:
           node-version: '20'
 
-      # Set up .env file
-      - name: Create .env file
-        run: |
-          echo "MONGO_URI=mongodb://localhost:27017/mydatabase" > .env
+      # Copy .env file to Server directory
+      - name: Copy .env to Server
+        run: cp .env Server/.env
 
       # Install root dependencies
       - name: Install Root Dependencies
@@ -45,7 +44,7 @@ jobs:
           cd Server
           nohup npm start &
         env:
-          MONGO_URI: mongodb://localhost:27017/mydatabase
+          MONGO_URI: ${{ secrets.MONGO_URI }}
 
       # Install client dependencies
       - name: Install Client Dependencies
