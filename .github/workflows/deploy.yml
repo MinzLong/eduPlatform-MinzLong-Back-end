@@ -8,16 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      mongodb:
-        image: mongo:latest
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd="mongo --eval 'db.runCommand({ ping: 1 })'"
-          --health-interval=30s
-          --health-timeout=10s
-          --health-retries=10
 
     steps:
       - uses: actions/checkout@v4
@@ -98,9 +88,5 @@ jobs:
     runs-on: ubuntu-latest
     if: failure()
     steps:
-      - name: Get MongoDB Container ID
-        id: get-mongo-id
-        run: echo "::set-output name=id::$(docker ps -aqf "name=mongodb")"
-      
-      - name: Check MongoDB Logs
-        run: docker logs ${{ steps.get-mongo-id.outputs.id }}
+      - name: Check Server Logs
+        run: docker logs ${{ steps.get-server-id.outputs.id }}
