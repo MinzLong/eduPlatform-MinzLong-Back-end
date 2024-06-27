@@ -30,6 +30,7 @@ jobs:
         run: |
           cd Server
           nohup npm start &
+          sleep 5
 
       # Install client dependencies
       - name: Install Client Dependencies
