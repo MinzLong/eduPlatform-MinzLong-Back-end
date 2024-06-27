@@ -17,7 +17,8 @@ jobs:
           --health-cmd="mongo --eval 'db.runCommand({ ping: 1 })'"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
+          --health-retries=5
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -92,3 +93,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  check-logs:
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Check MongoDB Logs
+        run: docker logs mongodb
