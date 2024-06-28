@@ -53,7 +53,7 @@ export default {
       if (validateEmail(email.value) && password.value.length >= 6 && firstName.value.trim() !== '' && lastName.value.trim() !== '' && validatePhoneNumber(phoneNumber.value)) {
         if (password.value === confirmPassword.value) {
           try {
-            await axios.post('http://edu-platform-minz-long.vercel.app/api/auth/register', {
+            await axios.post('http://localhost:3000/api/auth/register', {
               email: email.value,
               password: password.value,
               firstName: firstName.value,
