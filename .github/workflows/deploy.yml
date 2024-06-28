@@ -30,7 +30,8 @@ jobs:
         run: |
           cd Server
           nohup npm start &
-          sleep 5
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
       # Install client dependencies
       - name: Install Client Dependencies
