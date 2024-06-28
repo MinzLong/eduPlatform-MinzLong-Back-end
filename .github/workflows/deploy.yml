@@ -25,6 +25,13 @@ jobs:
           cd Server
           npm install
 
+      # Start server
+      - name: Start Server
+        run: |
+          cd Server
+          nohup npm start &
+      
+
       # Install client dependencies
       - name: Install Client Dependencies
         run: |
@@ -60,20 +67,17 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Login to Heroku
-        run: echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
-
-      - name: Deploy to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku create ${{ github.repository }}-server
-          git push heroku master
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   check-logs:
     runs-on: ubuntu-latest
