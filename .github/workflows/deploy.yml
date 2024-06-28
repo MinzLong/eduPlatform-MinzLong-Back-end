@@ -29,16 +29,7 @@ jobs:
       - name: Start Server
         run: |
           cd Server
-          nohup npm start &
-      
-      # Wait for MongoDB connection
-      - name: Wait for MongoDB connection
-        run: |
-          while [ ! -f /tmp/mongo-connected ]; do
-            echo "Waiting for MongoDB connection..."
-            sleep 5
-          done
-          echo "MongoDB connected successfully!"
+          npm start
 
       # Install client dependencies
       - name: Install Client Dependencies

@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
 const app = express();
 const port = 3000;
@@ -14,10 +13,7 @@ app.use(bodyParser.json());
 const mongoURI = process.env.MONGO_URI;
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('MongoDB connected...');
-    fs.writeFileSync('/tmp/mongo-connected', ''); // Tạo file đánh dấu
-  })
+  .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
 
 app.use('/api/auth', require('./routes/auth'));
