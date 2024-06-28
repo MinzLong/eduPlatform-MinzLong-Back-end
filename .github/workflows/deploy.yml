@@ -29,7 +29,8 @@ jobs:
       - name: Start Server
         run: |
           cd Server
-          npm start
+          nohup npm start &
+      
 
       # Install client dependencies
       - name: Install Client Dependencies
