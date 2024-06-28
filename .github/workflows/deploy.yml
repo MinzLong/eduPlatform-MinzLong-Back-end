@@ -30,8 +30,15 @@ jobs:
         run: |
           cd Server
           nohup npm start &
-        env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      
+      # Wait for MongoDB connection
+      - name: Wait for MongoDB connection
+        run: |
+          while [ ! -f /tmp/mongo-connected ]; do
+            echo "Waiting for MongoDB connection..."
+            sleep 5
+          done
+          echo "MongoDB connected successfully!"
 
       # Install client dependencies
       - name: Install Client Dependencies
