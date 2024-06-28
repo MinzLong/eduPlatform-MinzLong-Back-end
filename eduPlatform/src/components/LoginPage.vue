@@ -32,7 +32,7 @@ export default {
     const login = async () => {
       if (validateEmail(email.value) && password.value.length >= 6) {
         try {
-          const response = await axios.post('http://localhost:3000/api/auth/login', {
+          const response = await axios.post('http://edu-platform-minz-long.vercel.app/api/auth/login', {
             email: email.value,
             password: password.value
           });
