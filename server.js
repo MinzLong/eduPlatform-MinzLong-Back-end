@@ -88,3 +88,10 @@ app.use('/api/exam', require('./routes/exam'));
 app.use('/api/courses', require('./routes/courses'));
 app.use('/api/chat', require('./routes/chat'));  
 app.use('/api/users', require('./routes/user')); 
+app.use('/api/exam', require('./routes/exam'));
+
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
