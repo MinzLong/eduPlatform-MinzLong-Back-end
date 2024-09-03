@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-module.exports = function(req, res, next) {
+module.exports = function (req, res, next) {
   let token;
 
   // Check for token in 'x-auth-token' header
   if (req.header('x-auth-token')) {
     token = req.header('x-auth-token');
-  } 
+  }
   // Check for token in 'Authorization' header
   else if (req.header('Authorization')) {
     const authHeader = req.header('Authorization');
@@ -19,7 +19,7 @@ module.exports = function(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, 'secret'); // Ensure the secret matches the one used during token creation
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Use an environment variable for the secret
     req.user = decoded.user;
     next();
   } catch (err) {
