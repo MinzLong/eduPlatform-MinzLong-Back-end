@@ -8,7 +8,15 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://edu-platform-minz-long-front-end.vercel.app'], // Replace with your actual frontend domains
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Allow sending cookies and HTTP authentication information
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // MongoDB connection
@@ -40,7 +48,7 @@ const ChatSchema = new mongoose.Schema({
 
 const Chat = mongoose.model('Chat', ChatSchema);
 
-// Ensure this POST route is correctly defined
+// API route to send a message
 app.post('/api/chat/:chatId/send', async (req, res) => {
   const { chatId } = req.params;
   const { senderId, text } = req.body;
@@ -72,7 +80,7 @@ app.get('/api/chat/:chatId/messages', async (req, res) => {
   const { chatId } = req.params;
 
   try {
-    const chat = await Chat.findById(chatId).populate('messages.sender', 'name');
+    const chat = await Chat.findById(chatId).populate('messages.sender', 'firstName lastName');
     if (!chat) {
       return res.status(404).json({ success: false, message: 'Chat not found' });
     }
