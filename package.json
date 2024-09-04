@@ -19,7 +19,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^4.17.2",
-    "mongoose": "^6.13.0",
+    "mongoose": "^8.6.1",
     "pusher": "^5.2.0",
     "vuex": "^4.1.0",
     "ws": "^8.18.0"
