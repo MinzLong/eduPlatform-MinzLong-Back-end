@@ -18,27 +18,24 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 export default {
-  emits: ['login'],
-  setup(_, { emit }) {
+  setup() {
+    const store = useStore();
+    const router = useRouter();
     const email = ref('');
     const password = ref('');
-    const router = useRouter();
 
     const login = async () => {
       if (validateEmail(email.value) && password.value.length >= 6) {
         try {
-          const response = await axios.post('http://localhost:3000/api/auth/login', {
+          await store.dispatch('login', {
             email: email.value,
             password: password.value
           });
-
-          const userData = { email: email.value };
-          emit('login', userData);
           router.push('/');
         } catch (error) {
           alert('Invalid email or password');
@@ -54,10 +51,8 @@ export default {
     };
 
     return { email, password, login };
-  },
+  }
 };
-
-
 </script>
 
 <style scoped>

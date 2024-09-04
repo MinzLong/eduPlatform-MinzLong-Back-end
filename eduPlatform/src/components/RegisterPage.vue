@@ -34,35 +34,32 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 export default {
-  emits: ['register'],
-  setup(_, { emit }) {
+  setup() {
+    const store = useStore();
+    const router = useRouter();
     const email = ref('');
     const password = ref('');
     const confirmPassword = ref('');
     const firstName = ref('');
     const lastName = ref('');
     const phoneNumber = ref('');
-    const router = useRouter();
 
     const register = async () => {
       if (validateEmail(email.value) && password.value.length >= 6 && firstName.value.trim() !== '' && lastName.value.trim() !== '' && validatePhoneNumber(phoneNumber.value)) {
         if (password.value === confirmPassword.value) {
           try {
-            await axios.post('http://localhost:3000/api/auth/register', {
+            await store.dispatch('register', {
               email: email.value,
               password: password.value,
               firstName: firstName.value,
               lastName: lastName.value,
               phoneNumber: phoneNumber.value
             });
-
-            const userData = { email: email.value };
-            emit('register', userData);
             router.push('/');
           } catch (error) {
             alert('Error registering user');
@@ -76,7 +73,7 @@ export default {
     };
 
     const validateEmail = (email) => {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const re = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
       return re.test(email);
     };
 
@@ -86,9 +83,8 @@ export default {
     };
 
     return { email, password, confirmPassword, firstName, lastName, phoneNumber, register };
-  },
+  }
 };
-
 </script>
 
 <style scoped>

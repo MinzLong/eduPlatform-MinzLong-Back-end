@@ -14,9 +14,18 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/courses">Courses</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/exam">Exam</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/leaderboard">Leaderboard</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/chat">Chat</router-link> <!-- Thêm mục Chat -->
+            </li>
           </ul>
-          <div v-if="user" class="d-flex">
-            <span class="navbar-text me-3">Welcome, {{ user.email }}</span>
+          <div v-if="isAuthenticated" class="d-flex">
+            <span class="navbar-text me-3">Welcome, {{ user?.email }}</span>
             <button class="btn btn-outline-secondary" @click="logout">Logout</button>
           </div>
           <div v-else class="d-flex">
@@ -27,27 +36,20 @@
       </div>
     </nav>
     <div class="container mt-4">
-      <router-view :user="user" @login="login" @register="login"></router-view>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  setup() {
-    const user = ref(null);
-
-    const login = (userData) => {
-      user.value = userData;
-    };
-
-    const logout = () => {
-      user.value = null;
-    };
-
-    return { user, login, logout };
+  computed: {
+    ...mapState(['user', 'isAuthenticated']),
+  },
+  methods: {
+    ...mapActions(['logout']),
   },
 };
 </script>
